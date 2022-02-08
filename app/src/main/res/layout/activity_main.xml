@@ -13,19 +13,23 @@
         android:layout_width="363dp"
         android:layout_height="246dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.105"
-        app:srcCompat="@drawable/screen_shot_2022_01_12_at_10_29_42_pm"
-        tools:layout_editor_absoluteX="24dp" />
+        app:srcCompat="@drawable/screen_shot_2022_01_12_at_10_29_42_pm" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="361dp"
-        android:layout_height="57dp"
+        android:layout_width="325dp"
+        android:layout_height="50dp"
         android:text="State of the art RFID technology"
         android:textAlignment="center"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="24dp"
-        tools:layout_editor_absoluteY="263dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.387" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
