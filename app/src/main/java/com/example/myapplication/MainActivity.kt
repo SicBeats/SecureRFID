@@ -1,6 +1,5 @@
 package com.example.myapplication
 
-import android.R
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.nfc.NfcAdapter
