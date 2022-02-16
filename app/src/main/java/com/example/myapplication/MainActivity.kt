@@ -23,12 +23,12 @@ class MainActivity : AppCompatActivity() {
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
         if (nfcAdapter == null) {
             Toast.makeText(this,
-                "NFC NOT supported on this devices!",
+                "NFC IS NOT SUPPORTED ON THIS DEVICE!",
                 Toast.LENGTH_LONG).show()
             finish()
         } else if (!nfcAdapter!!.isEnabled) {
             Toast.makeText(this,
-                "NFC NOT Enabled!",
+                "NFC IS SUPPORTED BUT NOT ENABLED!",
                 Toast.LENGTH_LONG).show()
             finish()
         }
