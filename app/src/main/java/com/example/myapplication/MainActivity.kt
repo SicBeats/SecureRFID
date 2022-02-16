@@ -40,6 +40,10 @@ class MainActivity : AppCompatActivity() {
                 Toast.LENGTH_LONG).show()
             stopNFCSound()
 //            finish()
+        } else {
+            Toast.makeText(this,
+                "NFC IS SUPPORTED, APP IS RUNNING!",
+                Toast.LENGTH_LONG).show()
         }
     }
 
