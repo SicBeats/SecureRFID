@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun playNFCSound() {
         if (NFCMediaPlayer == null) {
-            NFCMediaPlayer = MediaPlayer.create(this, R.raw./*name of file*/)
+            NFCMediaPlayer = MediaPlayer.create(this, R.raw.error)
             NFCMediaPlayer!!.isLooping = true
             NFCMediaPlayer!!.start()
         } else {
