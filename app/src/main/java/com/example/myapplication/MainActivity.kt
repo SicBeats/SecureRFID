@@ -69,6 +69,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         btn?.text = "RFID Blocking (ON)"
+        // Call function to mask RFID from card? Or we set to a switch...
     }
 
     private fun playNFCSound() {
