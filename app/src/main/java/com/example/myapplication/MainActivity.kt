@@ -1,22 +1,26 @@
 package com.example.myapplication
 
-import android.media.AudioManager
+import android.annotation.SuppressLint
 import android.media.MediaPlayer
 import android.nfc.NfcAdapter
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import android.view.View
 
 var NFCMediaPlayer: MediaPlayer? = null
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private var nfcAdapter: NfcAdapter? = null
     private var textViewInfo: TextView? = null
     private var textViewTagInfo:TextView? = null
     private var textViewBlock:TextView? = null
+    private var btn: Button? = null
+    private var i = 0
+    private var j = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,19 +29,32 @@ class MainActivity : AppCompatActivity() {
         textViewTagInfo = findViewById(R.id.taginfo)
         textViewBlock = findViewById(R.id.block)
 
+        btn = findViewById(R.id.btnRFID)
+        btn!!.setOnClickListener(this)
+
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
         if (nfcAdapter == null) {
             playNFCSound()
-            Toast.makeText(this,
-                "NFC IS NOT SUPPORTED ON THIS DEVICE!",
-                Toast.LENGTH_LONG).show()
+            while (i < 4) {
+                Toast.makeText(
+                    this,
+                    "NFC IS NOT SUPPORTED ON THIS DEVICE!",
+                    Toast.LENGTH_LONG
+                ).show()
+                i++
+            }
             stopNFCSound()
 //            finish()
         } else if (!nfcAdapter!!.isEnabled) {
             playNFCSound()
-            Toast.makeText(this,
-                "NFC IS SUPPORTED BUT NOT ENABLED!",
-                Toast.LENGTH_LONG).show()
+            while (j < 4) {
+                Toast.makeText(
+                    this,
+                    "NFC IS SUPPORTED BUT NOT ENABLED!",
+                    Toast.LENGTH_LONG
+                ).show()
+                j++
+            }
             stopNFCSound()
 //            finish()
         } else {
@@ -45,6 +62,13 @@ class MainActivity : AppCompatActivity() {
                 "NFC IS SUPPORTED, APP IS RUNNING!",
                 Toast.LENGTH_LONG).show()
         }
+    }
+
+
+
+
+    override fun onClick(v: View?) {
+        btn?.text = "RFID Blocking (ON)"
     }
 
     private fun playNFCSound() {
