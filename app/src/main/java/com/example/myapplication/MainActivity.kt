@@ -1,10 +1,16 @@
 package com.example.myapplication
 
 import android.annotation.SuppressLint
+import android.app.PendingIntent
 import android.content.Intent
+import android.content.IntentFilter
 import android.media.MediaPlayer
 import android.nfc.NdefMessage
 import android.nfc.NfcAdapter
+import android.nfc.NfcAdapter.ACTION_TECH_DISCOVERED
+import android.nfc.Tag
+import android.nfc.tech.IsoDep
+import android.nfc.tech.NfcA
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -70,15 +76,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    override fun onNewIntent(intent: Intent?) {
-        /*
-        This function will wait for an NFC to be read from the phone. It will then parse the NFC
-        tag info into a message
-         */
-        super.onNewIntent(intent)
-        Log.d("TAG", "New intent received")
+    private fun readNFCTag(intent: Intent?)
+    {
         if (intent != null) {
+            Log.d("TAG", "Intent is not null")
+            Log.d("TAG", intent.toString())
+
             if (NfcAdapter.ACTION_NDEF_DISCOVERED == intent.action) {
+                Log.d("TAG", "ACTION_NDEF_DISCOVERED check good")
                 intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)?.also { rawMessages ->
                     val messages: List<NdefMessage> = rawMessages.map { it as NdefMessage }
                     for (message in messages) {
@@ -95,6 +100,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         TODO: Call function to mask RFID from card? Or we set to a switch...
          */
         btn?.text = "RFID Blocking (ON)"
+        // readNFCTag(intent)
+        val intent = Intent(this, NFCActivity::class.java)
+        startActivity(intent)
     }
 
     private fun playNFCSound() {
