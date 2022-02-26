@@ -1,19 +1,12 @@
 package com.example.myapplication
 
-import android.annotation.SuppressLint
-import android.app.PendingIntent
 import android.content.Intent
-import android.content.IntentFilter
 import android.media.MediaPlayer
-import android.nfc.NdefMessage
 import android.nfc.NfcAdapter
-import android.nfc.NfcAdapter.ACTION_TECH_DISCOVERED
-import android.nfc.Tag
-import android.nfc.tech.IsoDep
-import android.nfc.tech.NfcA
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -36,7 +29,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         This function automatically executes on application opening
          */
         super.onCreate(savedInstanceState)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN)
+
         setContentView(R.layout.activity_main)
+
         textViewInfo = findViewById(R.id.info)
         textViewTagInfo = findViewById(R.id.taginfo)
         textViewBlock = findViewById(R.id. block)
@@ -73,24 +71,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             Toast.makeText(this,
                 "NFC IS SUPPORTED, APP IS RUNNING!",
                 Toast.LENGTH_LONG).show()
-        }
-    }
-
-    private fun readNFCTag(intent: Intent?)
-    {
-        if (intent != null) {
-            Log.d("TAG", "Intent is not null")
-            Log.d("TAG", intent.toString())
-
-            if (NfcAdapter.ACTION_NDEF_DISCOVERED == intent.action) {
-                Log.d("TAG", "ACTION_NDEF_DISCOVERED check good")
-                intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)?.also { rawMessages ->
-                    val messages: List<NdefMessage> = rawMessages.map { it as NdefMessage }
-                    for (message in messages) {
-                        Log.d("TAG", message.toString())
-                    }
-                }
-            }
         }
     }
 

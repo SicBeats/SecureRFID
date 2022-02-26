@@ -3,4 +3,6 @@
     <string name="main_button">RFID Blocking (OFF)</string>
     <string name="main_button_selected">RFID Blocking (ON)</string>
     <string name="slogan">State of the art RFID technology</string>
+    <string name="scanning_for_rfid_tag">Scanning for RFID Tag</string>
+    <string name="imageview2">imageView2</string>
 </resources>
