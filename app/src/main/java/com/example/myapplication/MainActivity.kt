@@ -44,7 +44,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)  // obtain device's NFCAdapter
         if (nfcAdapter == null) {   // Device does not have NFCAdapter
-            playNFCSound()
             while (i < 4) {
                 Toast.makeText(
                     this,
@@ -53,10 +52,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 ).show()
                 i++
             }
-            stopNFCSound()
 //            finish()
         } else if (!nfcAdapter!!.isEnabled) {  // Device has NFCAdapter but is turned off
-            playNFCSound()
             while (j < 4) {
                 Toast.makeText(
                     this,
@@ -65,7 +62,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 ).show()
                 j++
             }
-            stopNFCSound()
 //            finish()
         } else {  // Good to go
             Toast.makeText(this,
@@ -83,41 +79,5 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         // readNFCTag(intent)
         val intent = Intent(this, NFCActivity::class.java)
         startActivity(intent)
-    }
-
-    private fun playNFCSound() {
-        /*
-        This function will play an error sound.
-        Used when device does not support NFC
-         */
-        if (NFCMediaPlayer == null) {
-            NFCMediaPlayer = MediaPlayer.create(this, R.raw.error)
-            NFCMediaPlayer!!.isLooping = true
-            NFCMediaPlayer!!.start()
-        } else {
-            NFCMediaPlayer!!.start()
-        }
-    }
-
-    private fun stopNFCSound() {
-        /*
-        This function is used in tandem to playNFCSound()
-         */
-        if (NFCMediaPlayer != null) {
-            NFCMediaPlayer!!.stop()
-            NFCMediaPlayer!!.release()
-            NFCMediaPlayer = null
-        }
-    }
-
-    override fun onStop() {
-        /*
-        TODO: not sure what this does
-         */
-        super.onStop()
-        if (NFCMediaPlayer != null) {
-            NFCMediaPlayer!!.release()
-            NFCMediaPlayer = null
-        }
     }
 }
