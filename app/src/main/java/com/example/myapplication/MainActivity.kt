@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-    var NFCMediaPlayer: MediaPlayer? = MediaPlayer.create(this, R.raw.error_sound)
+    private var nfcMediaPlayer: MediaPlayer? = MediaPlayer.create(this, R.raw.error_sound)
     private var nfcAdapter: NfcAdapter? = null
     private var textViewInfo: TextView? = null
     private var textViewTagInfo:TextView? = null
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)  // obtain device's NFCAdapter
         if (nfcAdapter == null) {   // Device does not have NFCAdapter
-            NFCMediaPlayer?.start()
+            nfcMediaPlayer?.start()
             while (i < 4) {
                 Toast.makeText(
                     this,
@@ -51,10 +51,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 ).show()
                 i++
             }
-            NFCMediaPlayer?.stop()
+            nfcMediaPlayer?.stop()
 //            finish()
         } else if (!nfcAdapter!!.isEnabled) {  // Device has NFCAdapter but is turned off
-            NFCMediaPlayer?.start()
+            nfcMediaPlayer?.start()
             while (j < 4) {
                 Toast.makeText(
                     this,
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 ).show()
                 j++
             }
-            NFCMediaPlayer?.stop()
+            nfcMediaPlayer?.stop()
 //            finish()
         } else {  // Good to go
             Toast.makeText(this,
