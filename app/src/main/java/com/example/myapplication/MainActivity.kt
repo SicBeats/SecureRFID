@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-    private var nfcMediaPlayer: MediaPlayer? = MediaPlayer.create(this, R.raw.error_sound)
+    private var nfcMediaPlayer: MediaPlayer? = null
     private var nfcAdapter: NfcAdapter? = null
     private var textViewInfo: TextView? = null
     private var textViewTagInfo:TextView? = null
@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         btn = findViewById(R.id.btnRFID)  // Main RFID Scanner Button
         btn!!.setOnClickListener(this)    // Listen for button to be pressed
+        nfcMediaPlayer = MediaPlayer.create(this, R.raw.error_sound)
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)  // obtain device's NFCAdapter
         if (nfcAdapter == null) {   // Device does not have NFCAdapter
