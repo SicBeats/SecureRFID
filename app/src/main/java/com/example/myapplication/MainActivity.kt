@@ -1,7 +1,6 @@
 package com.example.myapplication
 
 import android.content.Intent
-import android.media.MediaPlayer
 import android.nfc.NfcAdapter
 import android.os.Bundle
 import android.view.View
@@ -13,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-    private var nfcMediaPlayer: MediaPlayer? = null
     private var nfcAdapter: NfcAdapter? = null
     private var textViewInfo: TextView? = null
     private var textViewTagInfo:TextView? = null
@@ -39,11 +37,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         btn = findViewById(R.id.btnRFID)  // Main RFID Scanner Button
         btn!!.setOnClickListener(this)    // Listen for button to be pressed
-        nfcMediaPlayer = MediaPlayer.create(this, R.raw.error_sound)
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)  // obtain device's NFCAdapter
         if (nfcAdapter == null) {   // Device does not have NFCAdapter
-            nfcMediaPlayer?.start()
             while (i < 4) {
                 Toast.makeText(
                     this,
@@ -52,10 +48,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 ).show()
                 i++
             }
-            nfcMediaPlayer?.stop()
 //            finish()
         } else if (!nfcAdapter!!.isEnabled) {  // Device has NFCAdapter but is turned off
-            nfcMediaPlayer?.start()
             while (j < 4) {
                 Toast.makeText(
                     this,
@@ -64,7 +58,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 ).show()
                 j++
             }
-            nfcMediaPlayer?.stop()
 //            finish()
         } else {  // Good to go
             Toast.makeText(this,
