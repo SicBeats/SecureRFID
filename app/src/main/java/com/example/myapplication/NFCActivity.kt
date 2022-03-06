@@ -3,13 +3,14 @@ package com.example.myapplication
 import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.nfc.tech.IsoDep
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.view.WindowManager
 import android.widget.ProgressBar
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.IOException
+import java.nio.ByteBuffer
 
 class NFCActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
     private var nfcAdapter: NfcAdapter? = null
@@ -41,15 +42,31 @@ class NFCActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
     }
 
     override fun onTagDiscovered(tag: Tag?) {
+        // This is APDU
         // spinner.visibility = View.GONE
-        val isoDep = IsoDep.get(tag)
+        val isoDep : IsoDep = IsoDep.get(tag)
         isoDep.connect()
-        Log.d("TAG", "onTagDiscovered prompted")
-        val response = isoDep.transceive(Utils.hexStringToByteArray(
-            "A000000003101001"))
-
-        Log.d("TAG", "\nCard Response: " + Utils.toHex(response))
+        if (isoDep.isConnected)
+        {
+            Log.d("TAG", "onTagDiscovered prompted")
+            val pse = "1PAY.SYS.DDF01".toByteArray()
+            val response = isoDep.transceive(getSelectCommand(pse))
+            Log.d("TAG", "\nCard Response: " + Utils.toHex(response))
+        }
         isoDep.close()
     }
+
+    // Code taken from https://github.com/chinaxstar/KotlinTest/blob/master/app/src/main/java/xstar/com/kotlintest/nfc.kt
+    private fun getSelectCommand(aid: ByteArray): ByteArray {
+        val cmdOse = ByteBuffer.allocate(aid.size + 6)
+        cmdOse.put(0x00.toByte()) // CLA Class
+            .put(0xA4.toByte()) // INS Instruction
+            .put(0x04.toByte()) // P1 Parameter 1
+            .put(0x00.toByte()) // P2 Parameter 2
+            .put(aid.size.toByte()) // Lc
+            .put(aid).put(0x00.toByte()) // Le
+        return cmdOse.array()
+    }
+    // "A000000003101001"
 }
 

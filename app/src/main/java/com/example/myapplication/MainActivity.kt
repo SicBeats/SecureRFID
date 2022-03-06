@@ -72,8 +72,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         TODO: Call function to mask RFID from card? Or we set to a switch...
          */
         btn?.text = "RFID Blocking (ON)"
-        // readNFCTag(intent)
         val intent = Intent(this, NFCActivity::class.java)
+        // val intent = Intent(this, NFCActivityIntent::class.java)
         startActivity(intent)
     }
 }
