@@ -5,4 +5,6 @@
     <string name="slogan">State of the art RFID technology</string>
     <string name="scanning_for_rfid_tag">Scanning for RFID Tag</string>
     <string name="imageview2">imageView2</string>
+    <string name="servicedesc">This is the apdu service description</string>
+    <string name="aiddescription">This is the AID description</string>
 </resources>
