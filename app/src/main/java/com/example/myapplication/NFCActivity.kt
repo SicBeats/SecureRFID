@@ -5,8 +5,10 @@ import android.nfc.Tag
 import android.nfc.tech.IsoDep
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.WindowManager
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.IOException
@@ -15,6 +17,7 @@ import java.nio.ByteBuffer
 class NFCActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
     private var nfcAdapter: NfcAdapter? = null
     private lateinit var spinner: ProgressBar
+    private var nfc_found: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +28,8 @@ class NFCActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
         setContentView(R.layout.activity_nfcactivity)
 
         spinner = findViewById(R.id.rfidProgressBar)
+        nfc_found = findViewById(R.id.nfc_found)
+        nfc_found?.visibility = View.GONE
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
     }
@@ -48,6 +53,8 @@ class NFCActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
         isoDep.connect()
         if (isoDep.isConnected)
         {
+            spinner.visibility = View.GONE
+            nfc_found?.visibility = View.VISIBLE
             Log.d("TAG", "onTagDiscovered prompted")
             val pse = "1PAY.SYS.DDF01".toByteArray()
             val response = isoDep.transceive(getSelectCommand(pse))
