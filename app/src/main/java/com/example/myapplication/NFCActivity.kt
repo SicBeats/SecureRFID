@@ -29,7 +29,6 @@ class NFCActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
 
         spinner = findViewById(R.id.rfidProgressBar)
         nfc_found = findViewById(R.id.nfc_found)
-        nfc_found?.visibility = View.GONE
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
     }
