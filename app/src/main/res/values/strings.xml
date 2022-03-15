@@ -8,4 +8,5 @@
     <string name="servicedesc">This is the apdu service description</string>
     <string name="aiddescription">This is the AID description</string>
     <string name="nfc_found">NFC Found</string>
+    <string name="test">This is a test</string>
 </resources>
