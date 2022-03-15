@@ -5,9 +5,11 @@ import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.nfc.tech.IsoDep
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -18,7 +20,7 @@ class NFCActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
     private var nfcAdapter: NfcAdapter? = null
     private lateinit var spinner: ProgressBar
     private var nfcFound: TextView? = null
-    private lateinit var cardInfo: TextView
+    private var cardInfo: EditText? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,10 +67,11 @@ class NFCActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
             val data = ByteArray(len - 2)
             System.arraycopy(response, 0, data, 0, len - 2)
             val str = String(data).trim { it <= ' ' }
-            val msg = "\nCard Response: $str"
-            Log.d("TAG", msg)
-            cardInfo.text = msg
-            cardInfo.visibility = View.VISIBLE
+            val msg: Editable? = null
+            msg?.append("\nCard Response: $str")
+            Log.d("TAG", msg.toString())
+            cardInfo?.text = msg
+            cardInfo?.visibility = View.VISIBLE
         }
         isoDep.close()
     }
