@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.annotation.SuppressLint
 import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.nfc.tech.IsoDep
@@ -16,7 +17,8 @@ import java.nio.ByteBuffer
 class NFCActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
     private var nfcAdapter: NfcAdapter? = null
     private lateinit var spinner: ProgressBar
-    private var nfc_found: TextView? = null
+    private var nfcFound: TextView? = null
+    private var cardInfo: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +29,8 @@ class NFCActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
         setContentView(R.layout.activity_nfcactivity)
 
         spinner = findViewById(R.id.rfidProgressBar)
-        nfc_found = findViewById(R.id.nfc_found)
+        nfcFound = findViewById(R.id.nfc_found)
+        cardInfo = findViewById(R.id.nfc_information)
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
     }
@@ -44,6 +47,7 @@ class NFCActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
         nfcAdapter?.disableReaderMode(this)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onTagDiscovered(tag: Tag?) {
         // This is APDU
         // spinner.visibility = View.GONE
@@ -52,7 +56,7 @@ class NFCActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
         if (isoDep.isConnected)
         {
             spinner.visibility = View.GONE
-            nfc_found?.visibility = View.VISIBLE
+            nfcFound?.visibility = View.VISIBLE
             Log.d("TAG", "onTagDiscovered prompted")
             // val pse = "1PAY.SYS.DDF01".toByteArray()
             val pse = Utils.hexStringToByteArray("A0000000031010")
@@ -63,6 +67,8 @@ class NFCActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
             System.arraycopy(response, 0, data, 0, len - 2)
             val str = String(data).trim { it <= ' ' }
             Log.d("TAG", "\nCard Response: $str")
+            cardInfo?.text = "Card Response: $str"
+            cardInfo?.visibility = View.VISIBLE
         }
         isoDep.close()
     }

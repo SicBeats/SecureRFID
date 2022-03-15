@@ -15,8 +15,10 @@
         android:layout_centerHorizontal="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.375" />
 
     <TextView
         android:id="@+id/rfidText"
@@ -24,12 +26,12 @@
         android:layout_height="wrap_content"
         android:text="@string/scanning_for_rfid_tag"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/rfidProgressBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.923" />
+        app:layout_constraintVertical_bias="0.568" />
 
     <TextView
         android:id="@+id/nfc_found"
@@ -37,12 +39,27 @@
         android:layout_height="wrap_content"
         android:text="@string/nfc_found"
         android:textAlignment="center"
-        android:textSize="18sp"
+        android:textSize="25sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/rfidText" />
+        app:layout_constraintTop_toTopOf="@+id/rfidText"
+        app:layout_constraintVertical_bias="0.444" />
+
+    <TextView
+        android:id="@+id/nfc_information"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:visibility="invisible"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rfidProgressBar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
