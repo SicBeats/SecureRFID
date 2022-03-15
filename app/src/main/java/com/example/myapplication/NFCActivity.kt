@@ -65,8 +65,8 @@ class NFCActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
             val data = ByteArray(len - 2)
             System.arraycopy(response, 0, data, 0, len - 2)
             val str = String(data).trim { it <= ' ' }
-            Log.d("TAG", "\nCard Response: $str")
             val msg = "\nCard Response: $str"
+            Log.d("TAG", msg)
             cardInfo?.text = msg
             cardInfo?.visibility = View.VISIBLE
         }
