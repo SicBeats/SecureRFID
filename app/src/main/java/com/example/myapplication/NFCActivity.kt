@@ -20,7 +20,7 @@ class NFCActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
     private var nfcAdapter: NfcAdapter? = null
     private lateinit var spinner: ProgressBar
     private var nfcFound: TextView? = null
-    private var cardInfo: EditText? = null
+    private var cardInfo: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,10 +67,8 @@ class NFCActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
             val data = ByteArray(len - 2)
             System.arraycopy(response, 0, data, 0, len - 2)
             val str = String(data).trim { it <= ' ' }
-            val msg: Editable? = null
-            msg?.append("\nCard Response: $str")
-            Log.d("TAG", msg.toString())
-            cardInfo?.text = msg
+            Log.d("TAG","Card Response: $str")
+            cardInfo?.text = str
             cardInfo?.visibility = View.VISIBLE
         }
         isoDep.close()
