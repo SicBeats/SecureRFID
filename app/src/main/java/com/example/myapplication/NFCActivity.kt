@@ -11,7 +11,6 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import java.io.IOException
 import java.nio.ByteBuffer
 
 class NFCActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
@@ -55,9 +54,15 @@ class NFCActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
             spinner.visibility = View.GONE
             nfc_found?.visibility = View.VISIBLE
             Log.d("TAG", "onTagDiscovered prompted")
-            val pse = "1PAY.SYS.DDF01".toByteArray()
+            // val pse = "1PAY.SYS.DDF01".toByteArray()
+            val pse = Utils.hexStringToByteArray("A0000000031010")
             val response = isoDep.transceive(getSelectCommand(pse))
-            Log.d("TAG", "\nCard Response: " + Utils.toHex(response))
+            // Log.d("TAG", "\nCard Response: " + Utils.toHex(response))
+            val len = response.size
+            val data = ByteArray(len - 2)
+            System.arraycopy(response, 0, data, 0, len - 2)
+            val str = String(data).trim { it <= ' ' }
+            Log.d("TAG", "\nCard Response: $str")
         }
         isoDep.close()
     }
@@ -70,9 +75,8 @@ class NFCActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
             .put(0x04.toByte()) // P1 Parameter 1
             .put(0x00.toByte()) // P2 Parameter 2
             .put(aid.size.toByte()) // Lc
-            .put(aid).put(0x00.toByte()) // Le
+            .put(aid).put(0x00.toByte()) // aid + Le
         return cmdOse.array()
     }
-    // "A000000003101001"
 }
 
