@@ -52,7 +52,7 @@
         android:id="@+id/nfc_information"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
+        android:text="HELLO WORLD"
         android:visibility="invisible"
         android:textAlignment="center"
         android:textSize="20sp"

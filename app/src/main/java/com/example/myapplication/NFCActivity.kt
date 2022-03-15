@@ -47,7 +47,6 @@ class NFCActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
         nfcAdapter?.disableReaderMode(this)
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onTagDiscovered(tag: Tag?) {
         // This is APDU
         // spinner.visibility = View.GONE
@@ -67,7 +66,8 @@ class NFCActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
             System.arraycopy(response, 0, data, 0, len - 2)
             val str = String(data).trim { it <= ' ' }
             Log.d("TAG", "\nCard Response: $str")
-            cardInfo?.text = "Card Response: $str"
+            val msg = "\nCard Response: $str"
+            cardInfo?.text = msg
             cardInfo?.visibility = View.VISIBLE
         }
         isoDep.close()
